@@ -7,6 +7,7 @@ import {
   inject,
   NgZone,
   OnInit,
+  VERSION,
   ViewChild,
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -24,6 +25,7 @@ import { WarningService } from "./warning.service";
   standalone: false,
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  protected version = VERSION.full
   private destroyRef = inject(DestroyRef);
 
   private value = 0;
