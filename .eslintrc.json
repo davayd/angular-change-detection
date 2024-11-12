@@ -1,18 +1,12 @@
 {
   "root": true,
   "plugins": [],
-  "ignorePatterns": [
-    "src/app/api/**/*"
-  ],
+  "ignorePatterns": ["src/app/api/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -20,10 +14,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "comma-dangle": [
-          "error",
-          "only-multiline"
-        ],
+        "comma-dangle": ["error", "only-multiline"],
         "max-len": [
           "error",
           {
@@ -54,12 +45,8 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
   ]

@@ -17,6 +17,7 @@ const CHILD_TEMPLATE = `
   styleUrls: ["./../change-detection.component.scss"],
   providers: [ColorService],
   changeDetection: CD_STRATEGY,
+  standalone: false,
 })
 export class Comp_1_x_4_Component extends AbstractChangeDetectionComponent {
   constructor() {
