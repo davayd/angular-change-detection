@@ -18,14 +18,16 @@ import { DirtyCheckColoringService } from "./dirty-check-coloring.service";
 import { NumberHolder } from "./number-holder";
 import { WarningService } from "./warning.service";
 
+import { Comp_1_Component } from "./comp-tree/comp-1.component";
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  standalone: false,
+  imports: [Comp_1_Component],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  protected version = VERSION.full
+  protected version = VERSION.full;
   private destroyRef = inject(DestroyRef);
 
   private value = 0;

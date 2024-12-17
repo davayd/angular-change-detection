@@ -13,7 +13,7 @@ const CD_STRATEGY = ChangeDetectionStrategy.OnPush;
   styleUrls: ["./../change-detection.component.scss"],
   providers: [ColorService],
   changeDetection: CD_STRATEGY,
-  standalone: false,
+  
 })
 export class Comp_1_x_3_2_Component extends AbstractChangeDetectionComponent {
   constructor() {

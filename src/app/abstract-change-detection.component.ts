@@ -28,7 +28,6 @@ import { WarningService } from "./warning.service";
 export abstract class AbstractChangeDetectionComponent implements AfterViewInit, OnChanges {
   private destroyRef = inject(DestroyRef);
   private _destroyInputObservable$ = new Subject<void>();
-  private cdRef = inject(ChangeDetectorRef);
 
   @ViewChild("execute_button", { static: true })
   private _executeButton!: ElementRef<HTMLButtonElement>;
@@ -175,17 +174,31 @@ export abstract class AbstractChangeDetectionComponent implements AfterViewInit,
   private getCdStatus(cdRef: ChangeDetectorRef): CdStatus {
     let lView = (cdRef as any)._lView;
     const flags: number = lView[2]; // FLAGS=2
-    const consumer = lView[23]; // REACTIVE_TEMPLATE_CONSUMER =  23
+    const consumer = lView[24]; // REACTIVE_TEMPLATE_CONSUMER = 24
 
+    /*
+     * 4 - LViewFlags.CreationMode
+     * 8 - LViewFlags.FirstLViewPass
+     * 16 - LViewFlags.CheckAlways
+     * 32 - LViewFlags.HasI18n
+     * 64 - LViewFlags.Dirty
+     * 128 - LViewFlags.Attached
+     * 256 - LViewFlags.Destroyed
+     * 512 - LViewFlags.IsRoot
+     * 1024 - LViewFlags.RefreshView
+     * 2048 - LViewFlags.HasEmbeddedViewInjector
+     * 4096 - LViewFlags.SignalView
+     * 8192 - LViewFlags.HasChildViewsToRefresh
+     * 16384 - LViewFlags.IndexWithinInitPhaseIncrementer
+     * 32768 - LViewFlags.IsInCheckPhase
+     */
     if (flags & 64) {
-      // LViewFlags.Dirty = 1 << 6 = 64
       return "dirty";
     } else if (flags & 8192) {
-      // LViewFlags.HasChildViewsToRefresh = 8192
       return "HasChildViewsToRefresh";
     } else if (flags & 1024) {
       return "RefreshView";
-    } else if (consumer.dirty) {
+    } else if (consumer?.dirty) {
       return "Consumer dirty";
     } else {
       return null;
@@ -193,7 +206,15 @@ export abstract class AbstractChangeDetectionComponent implements AfterViewInit,
   }
 }
 
-type CdStatus = "HasChildViewsToRefresh" | "RefreshView" | "dirty" | "Consumer dirty" | null;
+type CdStatus =
+  | "HasChildViewsToRefresh"
+  | "RefreshView"
+  | "dirty"
+  | "Consumer dirty"
+  | "CreationMode"
+  | "Attached"
+  | "FirstLViewPass"
+  | null;
 
 @Injectable({ providedIn: "root" })
 export class StateService {
